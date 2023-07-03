@@ -66,7 +66,7 @@ By default `stereo_datasets.py` will search for the datasets in these locations.
 ```
 
 
-## Build Sampler （Optional）
+## Build Sampler (Optional)
 ```Shell
 cd sampler
 rm -r build corr_sampler.egg-info dist
