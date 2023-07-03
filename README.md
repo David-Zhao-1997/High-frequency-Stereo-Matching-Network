@@ -14,7 +14,7 @@ Haoliang Zhao, Huizhou Zhou, Yongjun Zhang, Jie Chen, Yitong Yang and Yong Zhao<
 }
 ```
 
-## Software Requirements (Recommanded)
+## Software Requirements (Recommended)
 PyTorch 1.12.0 <br/>
 CUDA 11.7
 
