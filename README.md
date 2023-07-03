@@ -1,6 +1,6 @@
 # High-frequency-Stereo-Matching-Network
 
-<font color="#0000dd">High-Frequency Stereo Matching Network</font> [PDF](https://github.com/David-Zhao-1997/High-frequency-Stereo-Matching-Network/releases/download/v1.0.0/High-frequency.Stereo.Matching.Network.pdf)<br/>
+<font color="#0000dd">High-Frequency Stereo Matching Network</font> [\[PDF\]](https://github.com/David-Zhao-1997/High-frequency-Stereo-Matching-Network/releases/download/v1.0.0/High-frequency.Stereo.Matching.Network.pdf)<br/>
 CVPR 2023, Highlight<br/>
 Haoliang Zhao, Huizhou Zhou, Yongjun Zhang, Jie Chen, Yitong Yang and Yong Zhao<br/>
 
