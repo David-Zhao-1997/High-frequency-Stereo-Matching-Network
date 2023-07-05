@@ -215,7 +215,7 @@ def validate_middlebury(model, iters=32, split='F', mixed_prec=False):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--restore_ckpt', help="restore checkpoint",
-                        default='/your_path/eai-stereo.pth')
+                        default='/your_path/dlnr.pth')
     parser.add_argument('--dataset', help="dataset for evaluation",
                         choices=["eth3d", "kitti", "things"] + [f"middlebury_{s}" for s in 'FHQ'], default='things')
     parser.add_argument('--mixed_precision', action='store_true', help='use mixed precision', default=True)
