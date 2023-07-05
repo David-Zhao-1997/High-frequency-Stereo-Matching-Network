@@ -36,7 +36,6 @@ The program runs in a variety of environments, but the results may vary slightly
 To evaluate/train High-Frequency Stereo Matching Network, you will need to download the required datasets. 
 * [Sceneflow](https://lmb.informatik.uni-freiburg.de/resources/datasets/SceneFlowDatasets.en.html#:~:text=on%20Academic%20Torrents-,FlyingThings3D,-Driving) 
 * [Middlebury](https://vision.middlebury.edu/stereo/data/)
-* [ETH3D](https://www.eth3d.net/datasets#low-res-two-view-test-data)
 * [KITTI](http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=stereo)
 
 By default `stereo_datasets.py` will search for the datasets in these locations. You can create symbolic links to wherever the datasets were downloaded in the `datasets` folder
