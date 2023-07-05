@@ -61,8 +61,6 @@ By default `stereo_datasets.py` will search for the datasets in these locations.
         ├── devkit
     ├── Middlebury
         ├── MiddEval3
-    ├── ETH3D
-        ├── two_view_testing
 ```
 
 
