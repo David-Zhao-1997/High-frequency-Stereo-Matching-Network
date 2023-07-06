@@ -110,15 +110,7 @@ class NormalizationRefinement(nn.Module):
         residual_disp = self.final_conv(x)  # [B, 1, H, W]
 
         new_disp = F.leaky_relu(disp + residual_disp, inplace=True)  # [B, 1, H, W]
-        # warped_right = disp_warp(right_img, new_disp)[0]  # [B, C, H, W]
-        # new_error = warped_right - left_img  # [B, C, H, W]
-        # new_error = torch.sum(new_error, dim=1)
-        # error = torch.sum(error, dim=1)
-        # # print(new_disp.shape)
-        # B, _, H, W = left_img.shape
-        # disp = torch.where((new_error < error).view(B, 1, H, W),
-        #                    new_disp, disp)
-        # disp = new_disp
+
         disp = new_disp / 1024 * disp.shape[3]  # dtu_test_tank
 
         return -disp
