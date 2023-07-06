@@ -80,3 +80,21 @@ Set the arguments in evaluate_stereo.py and execute
 ```Shell
 python evaluate_stereo.py
 ```
+
+## Acknowledgement
+Special thanks to RAFT-Stereo for providing the code base for this work.
+
+<details>
+<summary>
+<a href="https://github.com/princeton-vl/RAFT-Stereo">RAFT-Stereo</a> [<b>BibTeX</b>]
+</summary>
+
+```bibtex
+@inproceedings{lipson2021raft,
+  title={RAFT-Stereo: Multilevel Recurrent Field Transforms for Stereo Matching},
+  author={Lipson, Lahav and Teed, Zachary and Deng, Jia},
+  booktitle={International Conference on 3D Vision (3DV)},
+  year={2021}
+}
+```
+</details>
