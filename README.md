@@ -1,4 +1,4 @@
-# High-frequency-Stereo-Matching-Network
+# High-frequency Stereo Matching Network
 
 [High-Frequency Stereo Matching Network](https://github.com/David-Zhao-1997/High-frequency-Stereo-Matching-Network/releases/download/v1.0.0/High-frequency.Stereo.Matching.Network.pdf)<br/>
 CVPR 2023, Highlight<br/>
