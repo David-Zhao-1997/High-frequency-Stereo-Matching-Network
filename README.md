@@ -4,7 +4,7 @@
 CVPR 2023, Highlight<br/>
 Haoliang Zhao, Huizhou Zhou, Yongjun Zhang, Jie Chen, Yitong Yang and Yong Zhao<br/>
 
-```
+```bibtex
 @inproceedings{zhao2023high,
   title={High-Frequency Stereo Matching Network},
   author={Zhao, Haoliang and Zhou, Huizhou and Zhang, Yongjun and Chen, Jie and Yang, Yitong and Zhao, Yong},
