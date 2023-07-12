@@ -84,7 +84,7 @@ python evaluate_stereo.py
 ## Pretrained Weights
 * [Sceneflow](https://github.com/David-Zhao-1997/High-frequency-Stereo-Matching-Network/releases/download/v1.0.0/DLNR_SceneFlow.pth) 
 * [Middlebury](https://github.com/David-Zhao-1997/High-frequency-Stereo-Matching-Network/releases/download/v1.0.0/DLNR_Middlebury.pth)
-* [KITTI-2015](https://github.com/David-Zhao-1997/High-frequency-Stereo-Matching-Network/releases/download/v1.0.0/DLNR_SceneFlow.pth)
+* [KITTI-2015](https://github.com/David-Zhao-1997/High-frequency-Stereo-Matching-Network/releases/download/v1.0.0/DLNR_KITTI2015.pth)
 
 ## Acknowledgement
 Special thanks to RAFT-Stereo for providing the code base for this work.
