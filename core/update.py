@@ -4,7 +4,6 @@ import torch.nn.functional as F
 from opt_einsum import contract
 
 
-
 class FlowHead(nn.Module):
     def __init__(self, input_dim=128, hidden_dim=256, output_dim=2):
         super(FlowHead, self).__init__()
@@ -23,7 +22,7 @@ class ConvGRU(nn.Module):
         self.convr = nn.Conv2d(hidden_dim + input_dim, hidden_dim, kernel_size, padding=kernel_size // 2)
         self.convq = nn.Conv2d(hidden_dim + input_dim, hidden_dim, kernel_size, padding=kernel_size // 2)
 
-    def forward(self, h, cz, cr, cq, *x_list):  # h 上一层的输入 z update r reset
+    def forward(self, h, cz, cr, cq, *x_list):
         x = torch.cat(x_list, dim=1)
         hx = torch.cat([h, x], dim=1)
 
@@ -43,10 +42,10 @@ class LSTM(nn.Module):
         self.conv_ft = nn.Conv2d(hidden_dim + input_dim, hidden_dim, kernel_size, padding=kernel_size // 2)
         self.conv_ot = nn.Conv2d(hidden_dim + input_dim, hidden_dim, kernel_size, padding=kernel_size // 2)
 
-    def forward(self, c, h, bi, bf, bc, bo, *x_list):  # h 上一层的输入 z update r reset cr->bf cz->bi cq->bc bo
-        x = torch.cat(x_list, dim=1)  # 这里把lstm(net[],net,*inp以后所有的东西都拼起来 因为GRU只有h LSTM有c h所以后面多了一个(128)
+    def forward(self, c, h, bi, bf, bc, bo, *x_list):
+        x = torch.cat(x_list, dim=1)
         hx = torch.cat([h, x], dim=1)
-        ft = torch.sigmoid(self.conv_ft(hx) + bf)  # bf是bias ft = forget_gate
+        ft = torch.sigmoid(self.conv_ft(hx) + bf)
         it = torch.sigmoid(self.conv_it(hx) + bi)
         c_t = torch.tanh(self.conv_c_t(hx) + bc)
         ct = c * ft + it * c_t
