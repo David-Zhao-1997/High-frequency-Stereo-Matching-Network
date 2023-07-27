@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from opt_einsum import contract
-# from mogrifier import Mogrifier
+
 
 
 class FlowHead(nn.Module):
@@ -23,7 +23,7 @@ class ConvGRU(nn.Module):
         self.convr = nn.Conv2d(hidden_dim + input_dim, hidden_dim, kernel_size, padding=kernel_size // 2)
         self.convq = nn.Conv2d(hidden_dim + input_dim, hidden_dim, kernel_size, padding=kernel_size // 2)
 
-    def forward(self, h, cz, cr, cq, *x_list):  # h ÉÏÒ»²ãµÄÊäÈë z update r reset
+    def forward(self, h, cz, cr, cq, *x_list):  # h ä¸Šä¸€å±‚çš„è¾“å…¥ z update r reset
         x = torch.cat(x_list, dim=1)
         hx = torch.cat([h, x], dim=1)
 
@@ -42,35 +42,11 @@ class LSTM(nn.Module):
         self.conv_c_t = nn.Conv2d(hidden_dim + input_dim, hidden_dim, kernel_size, padding=kernel_size // 2)
         self.conv_ft = nn.Conv2d(hidden_dim + input_dim, hidden_dim, kernel_size, padding=kernel_size // 2)
         self.conv_ot = nn.Conv2d(hidden_dim + input_dim, hidden_dim, kernel_size, padding=kernel_size // 2)
-        # self.m = Mogrifier(
-        #     dim=hidden_dim,
-        #     iters=5,  # number of iterations, defaults to 5 as paper recommended for LSTM
-        #     factorize_k=None,  # factorize weight matrices into (dim x k) and (k x dim), if specified
-        #     kernel_size=3
-        # )
-        # print('hidden_dim')
-        # print(hidden_dim)
-        # print('input_dim')
-        # print(input_dim)
 
-    def forward(self, c, h, bi, bf, bc, bo, *x_list):  # h ÉÏÒ»²ãµÄÊäÈë z update r reset cr->bf cz->bi cq->bc bo
-        # print('len:x_list')
-        # print(len(x_list))
-        # print('x.shape')
-        # print(x.shape)
-        # print('h.shape')
-        # print(h.shape)
-        x = torch.cat(x_list, dim=1)  # ÕâÀï°Ñlstm(net[],net,*inpÒÔºóËùÓÐµÄ¶«Î÷¶¼Æ´ÆðÀ´ ÒòÎªGRUÖ»ÓÐh LSTMÓÐc hËùÒÔºóÃæ¶àÁËÒ»¸ö(128)
-        # exit()
-        # if x.shape[1] == h.shape[1]:
-        #     x, h = self.m(x, h)
-            # x = x + new_x
-            # h = h + new_h
+    def forward(self, c, h, bi, bf, bc, bo, *x_list):  # h ä¸Šä¸€å±‚çš„è¾“å…¥ z update r reset cr->bf cz->bi cq->bc bo
+        x = torch.cat(x_list, dim=1)  # è¿™é‡ŒæŠŠlstm(net[],net,*inpä»¥åŽæ‰€æœ‰çš„ä¸œè¥¿éƒ½æ‹¼èµ·æ¥ å› ä¸ºGRUåªæœ‰h LSTMæœ‰c hæ‰€ä»¥åŽé¢å¤šäº†ä¸€ä¸ª(128)
         hx = torch.cat([h, x], dim=1)
-        # print('hx.shape')
-        # print(hx.shape)
-        # TODO 
-        ft = torch.sigmoid(self.conv_ft(hx) + bf)  # bfÊÇbias ft = forget_gate
+        ft = torch.sigmoid(self.conv_ft(hx) + bf)  # bfæ˜¯bias ft = forget_gate
         it = torch.sigmoid(self.conv_it(hx) + bi)
         c_t = torch.tanh(self.conv_c_t(hx) + bc)
         ct = c * ft + it * c_t
@@ -190,7 +166,7 @@ class BasicMultiUpdateBlock(nn.Module):
 
         delta_flow = self.flow_head(net[0])
 
-        # scale mask to balence gradients
+        # scale mask to balance gradients
         mask = .25 * self.mask(net[0])
         return net, mask, delta_flow
 
@@ -208,37 +184,14 @@ class LSTMMultiUpdateBlock(nn.Module):
         self.flow_head = FlowHead(hidden_dims[2], hidden_dim=256, output_dim=2)
         factor = 2 ** self.args.n_downsample
 
-        # print('(factor ** 2) * 9')
-        # print((factor ** 2) * 9)
-
         self.mask = nn.Sequential(
             nn.Conv2d(hidden_dims[2], 256, 3, padding=1),
             nn.ReLU(inplace=True),
             nn.Conv2d(256, (factor ** 2) * 9, 1, padding=0))
 
     def forward(self, netC, netH, inp, corr=None, flow=None, iter08=True, iter16=True, iter32=True, update=True):
-        # print('inp[2]')
-        # print(inp[2])
-        # print('len(inp[2])')  # inp[?] = 3
-        # print(len(inp[2]))
-        # print('```net[0]')
-        # print(net[0].shape)
-        # print('```net[1]')
-        # print(net[1].shape)
         if iter32:
             netC[2], netH[2] = self.lstm32(netC[2], netH[2], *(inp[2]), pool2x(netH[1]))
-            # print(type(net[2]))
-            # print(len(net[2]))
-            # print('net[2]```')
-            # print(net[2].shape)
-            # print('net[1]```')
-            # print(net[1].shape)
-
-            # a, b = self.lstm32(net[2], net[2], *(inp[2]), pool2x(net[1]))
-            # print('a```')
-            # print(a.shape)
-            # print('b```')
-            # print(b.shape)
         if iter16:
             if self.args.n_gru_layers > 2:
                 netC[1], netH[1] = self.lstm16(netC[1], netH[1], *(inp[1]), pool2x(netH[0]),
@@ -256,9 +209,5 @@ class LSTMMultiUpdateBlock(nn.Module):
         if not update:
             return netH
         delta_flow = self.flow_head(netH[0])
-        # scale mask to balence gradients
-        # print('###net[0].shape')
-        # print(netH[0].shape)
         mask = .25 * self.mask(netH[0])
-        # print('Success!!!!!!!!!!!!!!')
         return netC, netH, mask, delta_flow
