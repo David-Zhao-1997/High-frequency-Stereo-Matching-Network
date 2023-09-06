@@ -7,13 +7,6 @@ try:
 except:
     pass
 
-try:
-    import alt_cuda_corr
-except:
-    # alt_cuda_corr is not compiled
-    pass
-
-
 class CorrSampler(torch.autograd.Function):
     @staticmethod
     def forward(ctx, volume, coords, radius):
