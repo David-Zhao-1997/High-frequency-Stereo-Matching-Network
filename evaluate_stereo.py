@@ -224,7 +224,7 @@ if __name__ == '__main__':
     # Architecure choices
     parser.add_argument('--hidden_dims', nargs='+', type=int, default=[128] * 3,
                         help="hidden state and context dimensions")
-    parser.add_argument('--corr_implementation', choices=["reg", "alt", "reg_cuda", "alt_cuda"], default="reg_cuda",
+    parser.add_argument('--corr_implementation', choices=["reg", "reg_cuda"], default="reg_cuda",
                         help="correlation volume implementation")
     parser.add_argument('--shared_backbone', action='store_true',
                         help="use a single backbone for the context and feature encoders", default=True)
